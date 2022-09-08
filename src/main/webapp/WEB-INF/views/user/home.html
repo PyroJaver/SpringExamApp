@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>Home page</title>
 </head>
 <body>
 
+<div sec:authorize="hasRole('ROLE_ADMIN')" class="admin">
+    <button class="btn">
+        <a th:href="@{admin/newQuestion}" th:text="NewQuestion" ><i class="fas fa-times"></i></a>
+    </button>
+</div>
 
 </body>
 </html>

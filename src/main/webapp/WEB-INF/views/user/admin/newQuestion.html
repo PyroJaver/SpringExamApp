@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/admin/addNewQuestion}" th:object="${question}">
+<form th:method="POST" th:action="@{/user/admin/newQuestion}" th:object="${question}">
     <label for="questionText">Введите текст вопроса</label>
     <input type="text" th:field="*{questionText}" id="questionText"/>
     <div style="color: red" th:if="${#fields.hasErrors('questionText')}" th:errors="*{questionText}"> Question text error</div>

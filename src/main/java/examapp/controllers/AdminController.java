@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("user/admin")
 public class AdminController {
     private final QuestionValidator questionValidator;
     private final QuestionService questionService;
@@ -28,12 +28,12 @@ public class AdminController {
 
     @GetMapping("/adminPage")
     public String adminPanel(){
-        return "/admin/adminPage";
+        return "/user/admin/adminPage";
     }
 
     @GetMapping("/newQuestion")
     public String newQuestionPage(@ModelAttribute("question") Question question){
-        return "admin/newQuestion";
+        return "/user/admin/newQuestion";
     }
 
     @PostMapping("/newQuestion")
@@ -41,10 +41,10 @@ public class AdminController {
                                 BindingResult bindingResult){
         questionValidator.validate(question, bindingResult);
         if (bindingResult.hasErrors()){
-            return "/admin/newQuestion";
+            return "/user/admin/newQuestion";
         }
         questionService.saveQuestion(question);
-        return "/admin/newQuestion";
+        return "/user/admin/newQuestion";
     }
 
 }
