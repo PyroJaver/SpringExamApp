@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+</head>
+<body>
+<div class = "col card-deck ml-5 my-3" th:if="${!questions.isEmpty()}">
+    <div class = "card" th:each="question:${questions}">
+<div class = "card-body">
+    <h4 class = "question-id" th:text = "${question.getId()}"></h4>
+    <p class = "question-text" th:text = "${question.getQuestionText}"></p>
+</div>
+    </div>
+</div>
+</body>
+</html>

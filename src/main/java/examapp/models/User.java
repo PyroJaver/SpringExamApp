@@ -38,6 +38,18 @@ public class User {
     @Column(name = "yearOfBirth")
     private int yearOfBirth;
 
+    @NotEmpty
+    @Column(name = "role")
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public int getId() {
         return id;
     }
