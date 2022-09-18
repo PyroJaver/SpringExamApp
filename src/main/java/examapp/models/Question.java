@@ -3,6 +3,7 @@ package examapp.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Entity
 @Table(name ="questions")
@@ -45,5 +46,18 @@ public class Question {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question = (Question) o;
+        return questionText.equals(question.questionText) && answer.equals(question.answer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(questionText, answer);
     }
 }
