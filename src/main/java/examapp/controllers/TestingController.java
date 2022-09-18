@@ -21,7 +21,7 @@ public class TestingController {
 
     @PostMapping("/testingPage")
     public String doTest(Model model, BindingResult bindingResult){
-//model.addAttribute("questions", service.getSomeQuestions() );
+ model.addAttribute("questions", service.getSomeQuestions() );
       // validator.validate(question, bindingResult);
        if(bindingResult.hasErrors()){
            return "/testing/testingPage";

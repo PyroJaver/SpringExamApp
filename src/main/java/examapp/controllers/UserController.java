@@ -32,8 +32,8 @@ public class UserController {
 
     @GetMapping("/user/testingPage")
     public String testingPage(Model model){
-       // List<Question> questions = questionService.getSomeQuestions();
-     //   model.addAttribute("questions", questions);
+        List<Question> questions = questionService.findSomeQuestions(sizeOfTest);
+        model.addAttribute("questions", questions);
         return "/testing/testingPage";
     }
 

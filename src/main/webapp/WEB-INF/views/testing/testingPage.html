@@ -11,10 +11,10 @@
     <div class = "question-body">
     <h4 class = "question-id" th:text = "Вопрос_ + ${question.getId()}"></h4>
     <p class = "question-text" th:text = "${question.getQuestionText}"></p>
-     <form class = "answer-form" th:action="@{/user/testingPage}" th:object="${question}" th:method="POST">
+   <!--  <form class = "answer-form" th:action="@{/user/testingPage}" th:object="${question}" th:method="POST">
         <input type="text" th:field="*{answer}"
                                             title="answer" autofocus="true"/>
-        </form>
+        </form>-->
     </div>
     </div>
 </div>

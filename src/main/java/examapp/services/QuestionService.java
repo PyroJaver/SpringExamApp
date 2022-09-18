@@ -2,6 +2,7 @@ package examapp.services;
 
 import examapp.models.Question;
 import examapp.repositories.QuestionRepo;
+import net.bytebuddy.dynamic.scaffold.MethodGraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,13 @@ import java.util.*;
 @Service
 public class QuestionService {
 
+
+   @Value("${questions.sizeOfTest}")
+   public int sizeOfTest;
+
+    public List <Question> someQuestions = new LinkedList<>();
+
     public final QuestionRepo questionRepo;
-  /*  @Value("${questions.sizeOfTest}")
-            int sizeOfTest;*/
-
-  //  private List <Question> someQuestions = findSomeQuestions(sizeOfTest);
-
     @Autowired
     public QuestionService(QuestionRepo questionRepo) {
         this.questionRepo = questionRepo;
@@ -43,8 +45,8 @@ public class QuestionService {
     }
 
     //метод выгружает все вопросы из базы данных, а затем генерирует из них тест со случайными вопросами
-    public List<Question> findSomeQuestions(@Value("${questions.sizeOfTest}") int sizeOfTest){
-        List<Question> someQuestions = new LinkedList<>();
+    public List<Question> findSomeQuestions(int sizeOfTest){
+      //  List<Question> someQuestions = new LinkedList<>();
         List<Question> allQuestions = questionRepo.findAll();
         //если размер теста больше, чем вопросов в базе данных, возвращаем пустой список
         if(sizeOfTest > allQuestions.size()){
@@ -69,7 +71,7 @@ public class QuestionService {
              }
         return resultOfTest;
     }*/
- /* public List<Question> getSomeQuestions() {
+  public List<Question> getSomeQuestions() {
       return someQuestions;
-  }*/
+  }
 }
