@@ -17,9 +17,9 @@ public class QuestionService {
    @Value("${questions.sizeOfTest}")
    public int sizeOfTest;
 
-    public List <Question> someQuestions = new LinkedList<>();
+    private List <Question> someQuestions = new LinkedList<>();
 
-    public final QuestionRepo questionRepo;
+    private final QuestionRepo questionRepo;
     @Autowired
     public QuestionService(QuestionRepo questionRepo) {
         this.questionRepo = questionRepo;
@@ -46,11 +46,15 @@ public class QuestionService {
 
     //метод выгружает все вопросы из базы данных, а затем генерирует из них тест со случайными вопросами
     public List<Question> findSomeQuestions(int sizeOfTest){
-      //  List<Question> someQuestions = new LinkedList<>();
+
         List<Question> allQuestions = questionRepo.findAll();
         //если размер теста больше, чем вопросов в базе данных, возвращаем пустой список
         if(sizeOfTest > allQuestions.size()){
             return someQuestions;
+        }
+        //обеспечение генерации нового теста при обновлении страницы, без перезапуска приложения
+        if(someQuestions.size() == sizeOfTest){
+            someQuestions.clear();
         }
         //добавление вопроса в список на основе случайного числа
         while(someQuestions.size() != sizeOfTest) {
@@ -72,6 +76,7 @@ public class QuestionService {
         return resultOfTest;
     }*/
   public List<Question> getSomeQuestions() {
+          someQuestions = findSomeQuestions(sizeOfTest);
       return someQuestions;
   }
 }

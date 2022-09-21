@@ -6,17 +6,17 @@
 
 </head>
 <body>
-<div class = "col card-deck ml-5 my-3" th:if="${!questions.isEmpty()}">
+<div class = "col card-deck ml-5 my-3" <!--th:if="${!questions.isEmpty()}"-->
+    <form class = "answer-form" th:action="@{/user/testingPage}"  th:method="POST">
     <div class = "card" th:each="question:${questions}">
-    <div class = "question-body">
+
     <h4 class = "question-id" th:text = "Вопрос_ + ${question.getId()}"></h4>
     <p class = "question-text" th:text = "${question.getQuestionText}"></p>
-   <!--  <form class = "answer-form" th:action="@{/user/testingPage}" th:object="${question}" th:method="POST">
-        <input type="text" th:field="*{answer}"
-                                            title="answer" autofocus="true"/>
-        </form>-->
+
+        <input type="text" th:value="*{answer}"  id="answer"/>
     </div>
-    </div>
+        <input type="submit" value="Отправить_ответs">
+    </form>
 </div>
 </body>
 </html>
