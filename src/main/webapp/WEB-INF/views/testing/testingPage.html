@@ -6,17 +6,23 @@
 
 </head>
 <body>
-<div class = "col card-deck ml-5 my-3" <!--th:if="${!questions.isEmpty()}"-->
-    <form class = "answer-form" th:action="@{/user/testingPage}"  th:method="POST">
-    <div class = "card" th:each="question:${questions}">
+<div class = "col card-deck ml-5 my-3" >
 
-    <h4 class = "question-id" th:text = "Вопрос_ + ${question.getId()}"></h4>
-    <p class = "question-text" th:text = "${question.getQuestionText}"></p>
 
-        <input type="text" th:value="*{answer}"  id="answer"/>
+<form action="#" th:action="@{/user/testingPage}" th:object="${test}" th:method="POST">
+    <div class = "card" th:each="question, itemStat:${test.questions}">
+
+        <h4 class = "question-id" th:text = "Вопрос_ + ${question.getId()}"></h4>
+        <p class = "question-text" th:text = "${question.getQuestionText}"></p>
+
+        <td><input hidden th:name="|questions[${itemStat.index}].id|" th:value="${question.getId()}"></td>
+        <td><input hidden th:name="|questions[${itemStat.index}].questionText|" th:value="${question.getQuestionText()}"></td>
+        <td><input th:name="|questions[${itemStat.index}].answer|">   </td>
     </div>
-        <input type="submit" value="Отправить_ответs">
-    </form>
+    <input type="submit" id="submitButton" th:value="submit">
+</form>
+
+
 </div>
 </body>
 </html>
