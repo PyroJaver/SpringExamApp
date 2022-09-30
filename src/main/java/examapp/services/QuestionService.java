@@ -2,7 +2,6 @@ package examapp.services;
 
 import examapp.models.Question;
 import examapp.repositories.QuestionRepo;
-import net.bytebuddy.dynamic.scaffold.MethodGraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,9 +14,10 @@ public class QuestionService {
 
 
    @Value("${questions.sizeOfTest}")
-   public int sizeOfTest;
+    public int sizeOfTest;
 
-    private List <Question> someQuestions = new LinkedList<>();
+    private List<Question> answeredQuestions = new ArrayList<>();
+    private List <Question> testQuestions = new ArrayList<>();
 
     private final QuestionRepo questionRepo;
     @Autowired
@@ -29,10 +29,6 @@ public class QuestionService {
         questionRepo.save(question);
     }
 
-    public List<Question> findAll() {
-        List<Question> allQuestions = questionRepo.findAll();
-        return allQuestions;
-    }
 
 
     public Question findById(Long id){
@@ -45,38 +41,43 @@ public class QuestionService {
     }
 
     //метод выгружает все вопросы из базы данных, а затем генерирует из них тест со случайными вопросами
-    public List<Question> findSomeQuestions(int sizeOfTest){
+    public List<Question> findTestQuestions(int sizeOfTest){
 
         List<Question> allQuestions = questionRepo.findAll();
         //если размер теста больше, чем вопросов в базе данных, возвращаем пустой список
         if(sizeOfTest > allQuestions.size()){
-            return someQuestions;
+            return testQuestions;
         }
         //обеспечение генерации нового теста при обновлении страницы, без перезапуска приложения
-        if(someQuestions.size() == sizeOfTest){
-            someQuestions.clear();
+        if(testQuestions.size() == sizeOfTest){
+            testQuestions.clear();
         }
         //добавление вопроса в список на основе случайного числа
-        while(someQuestions.size() != sizeOfTest) {
+        while(testQuestions.size() != sizeOfTest) {
             int indexOfRandomQuestion = (int) (Math.random() * allQuestions.size());
             //если элемент уже есть в списке, добавления элемента не происходит
-            if (!someQuestions.contains(allQuestions.get(indexOfRandomQuestion))){
-                someQuestions.add(allQuestions.get(indexOfRandomQuestion));
+            if (!testQuestions.contains(allQuestions.get(indexOfRandomQuestion))){
+                testQuestions.add(allQuestions.get(indexOfRandomQuestion));
             }
         }
-        return someQuestions;
+        return testQuestions;
     }
 
-  /*  public int performTestLogic(LinkedHashSet<Question> answeredQuestions, LinkedHashSet<Question> notAnsweredQuestions){
-        int count;
 
-             for (int i = 0; i < answeredQuestions.size()-1; i++ ){
-                 if(answeredQuestions.)
-             }
-        return resultOfTest;
-    }*/
-  public List<Question> getSomeQuestions() {
-          someQuestions = findSomeQuestions(sizeOfTest);
-      return someQuestions;
+  public List<Question> getNewTestQuestions() {
+          testQuestions = findTestQuestions(sizeOfTest);
+      return testQuestions;
   }
+
+  public  List<Question> getTestQuestions(){
+        return testQuestions;
+  }
+
+    public List<Question> getAnsweredQuestions() {
+        return answeredQuestions;
+    }
+
+    public void setAnsweredQuestions(List<Question> answeredQuestions) {
+        this.answeredQuestions = answeredQuestions;
+    }
 }
