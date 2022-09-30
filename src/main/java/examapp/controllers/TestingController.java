@@ -1,34 +1,54 @@
 package examapp.controllers;
 
+import examapp.dto.TestDto;
 import examapp.models.Question;
 import examapp.services.QuestionService;
-import examapp.util.QuestionValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
 public class TestingController {
-    private final QuestionService service;
-    private final QuestionValidator validator;
+    private final QuestionService questionService;
+    private final TestDto testDto;
 
-    public TestingController(QuestionService service, QuestionValidator validator) {
-        this.service = service;
-        this.validator = validator;
+    public TestingController(QuestionService questionService,  TestDto testDto) {
+        this.questionService = questionService;
+        this.testDto = testDto;
+    }
+
+    @GetMapping("/testingPage")
+    public String testingPage(Model model){
+        testDto.setQuestions(questionService.getNewTestQuestions());
+        model.addAttribute("test", testDto);
+        return "/testing/testingPage";
     }
 
     @PostMapping("/testingPage")
-    public String doTest(Model model,/* @ModelAttribute("questions") Question question,*/ BindingResult bindingResult ){
-  model.addAttribute("questions", service.getSomeQuestions());
+    public String saveAnsweredQuestions(@ModelAttribute("test") TestDto testDto ){
+        questionService.setAnsweredQuestions(testDto.getQuestions());
 
-      // validator.validate(questions, bindingResult);
-     // if(bindingResult.hasErrors()){
-     //      return "/testing/testingPage";
-     //  }
-        return "/testing/testingPage";
+        return "redirect:/user/testResults";
+    }
+    @GetMapping("/testResults")
+    public String showTestResults(@ModelAttribute("testResult") TestDto testDto){
+        List<Question> testQuestions = questionService.getTestQuestions();
+        List<Question> answeredQuestions = questionService.getAnsweredQuestions();
+
+        //сортировка необходима, чтобы for each и итератор шли по спискам вопросов синхронно
+        Collections.sort(answeredQuestions);
+        Collections.sort(testQuestions);
+
+        //ответ считается правильным, если поле answer для двух вопросов полностью совпадает.
+        //TODO: реализовать игнорирование регистра букв и одной опечатки в строке
+        for ( Question question: answeredQuestions){
+            if(question.getAnswer()==testQuestions.iterator().next().getAnswer()){
+             testDto.incrementRate();
+        }
+        }
+        return "testing/testResults";
     }
 }
