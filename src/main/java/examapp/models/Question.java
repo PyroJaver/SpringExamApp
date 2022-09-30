@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name ="questions")
-public class Question {
+public class Question implements Comparable<Question>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,5 +59,25 @@ public class Question {
     @Override
     public int hashCode() {
         return Objects.hash(questionText, answer);
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", questionText='" + questionText + '\'' +
+                ", answer='" + answer + '\'' +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Question question) {
+        if(this.id>question.getId()) {
+            return 1;
+        } else
+        if(this.id< question.getId()) {
+            return -1;
+        } else
+            return 0;
     }
 }
