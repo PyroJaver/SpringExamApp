@@ -12,7 +12,7 @@ public class Question implements Comparable<Question>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private int id;
 
     @Column(name ="questionText")
     @Size(min = 2, max = 1000)
@@ -40,11 +40,11 @@ public class Question implements Comparable<Question>{
         this.answer = answer;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
