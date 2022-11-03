@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:action="@{/user/testingPage}" th:object="${testResult}" th:method="GET">
+<p class="testResult" th:text="#{testing.result} + ' ' + ${testResult.getRate()}+ ' ' + #{testing.points_out_of} +
+' ' + ${testResult.getMaxRate()} + ', ' + #{testing.percentage_of_completion} + ' ' +
+${testResult.getPercentageOfCompletion()} + '%'">
+</div>
+</body>
+</html>
