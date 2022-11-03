@@ -1,7 +1,7 @@
 package examapp.controllers;
 
 import examapp.models.User;
-import examapp.services.RegistrationService;
+import examapp.services.UserDetailService;
 import examapp.util.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,11 +18,11 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final UserValidator userValidator;
-    private final RegistrationService registrationService;
+    private final UserDetailService userDetailService;
     @Autowired
-    public AuthController(UserValidator userValidator, RegistrationService registrationService) {
+    public AuthController(UserValidator userValidator, UserDetailService userDetailService) {
         this.userValidator = userValidator;
-        this.registrationService = registrationService;
+        this.userDetailService = userDetailService;
     }
 
 
@@ -33,17 +33,19 @@ public class AuthController {
 
     @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("user")User user){
-        return "auth/registration";
+
+         return "auth/registration";
     }
 
     @PostMapping("/registration")
     public String performRegistration(@ModelAttribute("user") @Valid User user,
                                       BindingResult bindingResult){
     userValidator.validate(user, bindingResult);
+
     if(bindingResult.hasErrors()){
         return "/auth/registration";
     }
-    registrationService.register(user);
+    userDetailService.registerUser(user);
     return "redirect:/auth/login";
     }
 }
