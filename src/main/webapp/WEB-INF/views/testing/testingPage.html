@@ -12,14 +12,14 @@
 <form action="#" th:action="@{/user/testingPage}" th:object="${test}" th:method="POST">
     <div class = "card" th:each="question, itemStat:${test.questions}">
 
-        <h4 class = "question-id" th:text = "Вопрос_ + ${question.getId()}"></h4>
+        <h4 class = "question-id" th:text = "#{question.question} + ' ' + ${question.getId()}"></h4>
         <p class = "question-text" th:text = "${question.getQuestionText}"></p>
 
         <td><input hidden th:name="|questions[${itemStat.index}].id|" th:value="${question.getId()}"></td>
         <td><input hidden th:name="|questions[${itemStat.index}].questionText|" th:value="${question.getQuestionText()}"></td>
         <td><input th:name="|questions[${itemStat.index}].answer|">   </td>
     </div>
-    <input type="submit" id="submitButton" th:value="submit">
+    <input type="submit" id="submitButton" th:value="#{testing.save_answers}">
 </form>
 
 
