@@ -20,18 +20,25 @@ public class QuestionService {
     private List <Question> testQuestions = new ArrayList<>();
 
     private final QuestionRepo questionRepo;
+
     @Autowired
     public QuestionService(QuestionRepo questionRepo) {
         this.questionRepo = questionRepo;
     }
+
+
     @Transactional
     public void saveQuestion(Question question){
         questionRepo.save(question);
     }
 
+    public List<Question> findAllQuestions(){
+        List<Question> allQuestions = questionRepo.findAll();
+        System.out.println(allQuestions);
+        return allQuestions;
+    }
 
-
-    public Question findById(Long id){
+    public Question findById(int id){
         Optional<Question> question = questionRepo.findById(Math.toIntExact(id));
         //возвращает пустой вопрос, если id не найден
         if(!question.isPresent()) {
@@ -63,6 +70,9 @@ public class QuestionService {
         return testQuestions;
     }
 
+  public void deleteQuestionById(int id){
+        questionRepo.deleteById(id);
+  }
 
   public List<Question> getNewTestQuestions() {
           testQuestions = findTestQuestions(sizeOfTest);
@@ -79,5 +89,17 @@ public class QuestionService {
 
     public void setAnsweredQuestions(List<Question> answeredQuestions) {
         this.answeredQuestions = answeredQuestions;
+    }
+
+    public List<Question> getAllQuestions(){
+        return questionRepo.findAll();
+    }
+
+    public void update(int id, Question updatedQuestion){
+       Question questionToBeUpdated = findById(id);
+
+       questionToBeUpdated.setQuestionText(updatedQuestion.getQuestionText());
+       questionToBeUpdated.setAnswer(updatedQuestion.getAnswer());
+       questionRepo.save(questionToBeUpdated);
     }
 }
