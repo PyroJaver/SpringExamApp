@@ -7,8 +7,10 @@ import java.util.List;
 
 @Component
 public class TestDto {
+
     private List<Question> questions;
-    private int rate;
+    private double rate;
+
     public TestDto() {
     }
 
@@ -23,10 +25,20 @@ public class TestDto {
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
+
     public void incrementRate(){
         rate++;
     }
-    public int getRate(){
+
+    public double getPercentageOfCompletion(){
+        double maxRate = questions.size();
+        return 100*rate/maxRate;
+    }
+    public double getMaxRate(){
+        double maxRate = questions.size();
+        return maxRate;
+    }
+    public double getRate(){
         return rate;
     }
 }
