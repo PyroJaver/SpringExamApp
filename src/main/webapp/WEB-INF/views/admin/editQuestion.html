@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EditQuestion</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/admin/questionList/{id}(id=${question.getId()})}" th:object="${question}">
+    <label for="questionText" th:text="#{testing.questions.question_text}"></label>
+    <input type="text" th:field="*{questionText}" id="questionText"/>
+    <div style="color: red" th:if="${#fields.hasErrors('questionText')}" th:errors="*{questionText}"> </div>
+    <br/>
+    <label for="answer"th:text="#{testing.questions.answer_text}"></label>
+    <input type="text" th:field="*{answer}" id="answer"/>
+    <div style="color: red" th:if="${#fields.hasErrors('answer')}" th:errors="*{answer}"></div>
+    <br/>
+
+    <input type="submit" th:value="#{testing.questions.create_question}">
+
+</form>
+
+</body>
+</html>
