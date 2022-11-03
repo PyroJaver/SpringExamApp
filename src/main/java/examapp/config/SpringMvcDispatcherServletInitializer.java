@@ -1,5 +1,6 @@
 package examapp.config;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -10,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.util.EnumSet;
 
+@Configuration
 public class SpringMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
