@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User list</title>
+</head>
+<body>
+<div th:action="@{/admin/userList}" th:method="GET">
+    <table>
+        <th>ID</th> <th>Username    </th> <th>Name    </th> <th>Surname   </th> <th>Year of birth</th>
+<div th:each="user:${users}">
+    <tr><td th:text="${user.getId()}"></td>
+        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getSurname()}"></td>
+        <td th:text="${user.getYearOfBirth()}"></td>
+        <td>
+
+            <form th:object="${user}"
+                  th:action="@{/admin/userList/{id}(id=${user.getId()})}" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="submit" value="Удалить"/> </form>
+        </td>
+        <td>
+
+            <form th:object="${user}"
+                  th:action="@{/admin/userList/{id}(id=${user.getId()})}" method="GET">
+              <!--  <input type="hidden" name="_method" value="">-->
+                <input type="submit" value="Редактировать"/> </form>
+        </td>
+    </tr>
+</div>
+    </table>
+</div>
+</body>
+</html>
