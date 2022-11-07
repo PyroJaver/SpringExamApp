@@ -3,6 +3,7 @@ package examapp;
 import examapp.models.Question;
 import examapp.models.User;
 import examapp.services.QuestionService;
+import examapp.services.TestingService;
 import examapp.services.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,12 +20,14 @@ public class StartupData implements CommandLineRunner {
 
     private final QuestionService questionService;
     private final UserDetailService userDetailService;
+    private final TestingService testingService;
     List<Question> startupQuestions = new ArrayList<>();
 
     @Autowired
-    public StartupData(QuestionService questionService, UserDetailService userDetailService) {
+    public StartupData(QuestionService questionService, UserDetailService userDetailService, TestingService testingService) {
         this.questionService = questionService;
         this.userDetailService = userDetailService;
+        this.testingService = testingService;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class StartupData implements CommandLineRunner {
         //в неё добавляется 15 вопросов
         // если в sizeOfTest передать число больше 15, стартовых вопросов не хватит на запуск тестирования
         //TODO: реализовать передачу sizeOfTest не через properties. Может быть, в базе данных хранить?
-        if(questionService.findTestQuestions(sizeOfTest).isEmpty()){
+        if(testingService.findTestQuestions(sizeOfTest).isEmpty()){
             startupQuestions();
         }
         if(userDetailService.loadAllUsers().isEmpty()){

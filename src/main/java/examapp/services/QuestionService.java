@@ -13,11 +13,7 @@ import java.util.*;
 public class QuestionService {
 
 
-   @Value("${questions.sizeOfTest}")
-    public int sizeOfTest;
 
-    private List<Question> answeredQuestions = new ArrayList<>();
-    private List <Question> testQuestions = new ArrayList<>();
 
     private final QuestionRepo questionRepo;
 
@@ -27,79 +23,36 @@ public class QuestionService {
     }
 
 
-    @Transactional
-    public void saveQuestion(Question question){
-        questionRepo.save(question);
-    }
 
-    public List<Question> findAllQuestions(){
-        List<Question> allQuestions = questionRepo.findAll();
-        System.out.println(allQuestions);
-        return allQuestions;
-    }
 
-    public Question findById(int id){
-        Optional<Question> question = questionRepo.findById(Math.toIntExact(id));
-        //возвращает пустой вопрос, если id не найден
-        if(!question.isPresent()) {
-            return new Question();
-        }
-        return question.get();
-    }
-
-    //метод выгружает все вопросы из базы данных, а затем генерирует из них тест со случайными вопросами
-    public List<Question> findTestQuestions(int sizeOfTest){
-
-        List<Question> allQuestions = questionRepo.findAll();
-        //если размер теста больше, чем вопросов в базе данных, возвращаем пустой список
-        if(sizeOfTest > allQuestions.size()){
-            return testQuestions;
-        }
-        //обеспечение генерации нового теста при обновлении страницы, без перезапуска приложения
-        if(testQuestions.size() == sizeOfTest){
-            testQuestions.clear();
-        }
-        //добавление вопроса в список на основе случайного числа
-        while(testQuestions.size() != sizeOfTest) {
-            int indexOfRandomQuestion = (int) (Math.random() * allQuestions.size());
-            //если элемент уже есть в списке, добавления элемента не происходит
-            if (!testQuestions.contains(allQuestions.get(indexOfRandomQuestion))){
-                testQuestions.add(allQuestions.get(indexOfRandomQuestion));
-            }
-        }
-        return testQuestions;
-    }
-
-  public void deleteQuestionById(int id){
-        questionRepo.deleteById(id);
-  }
-
-  public List<Question> getNewTestQuestions() {
-          testQuestions = findTestQuestions(sizeOfTest);
-      return testQuestions;
-  }
-
-  public  List<Question> getTestQuestions(){
-        return testQuestions;
-  }
-
-    public List<Question> getAnsweredQuestions() {
-        return answeredQuestions;
-    }
-
-    public void setAnsweredQuestions(List<Question> answeredQuestions) {
-        this.answeredQuestions = answeredQuestions;
-    }
-
-    public List<Question> getAllQuestions(){
+    public List<Question> getAllQuestions() {
         return questionRepo.findAll();
     }
 
-    public void update(int id, Question updatedQuestion){
-       Question questionToBeUpdated = findById(id);
+    public void updateQuestion(int id, Question updatedQuestion) {
+        Question questionToBeUpdated = findById(id);
 
-       questionToBeUpdated.setQuestionText(updatedQuestion.getQuestionText());
-       questionToBeUpdated.setAnswer(updatedQuestion.getAnswer());
-       questionRepo.save(questionToBeUpdated);
+        questionToBeUpdated.setQuestionText(updatedQuestion.getQuestionText());
+        questionToBeUpdated.setAnswer(updatedQuestion.getAnswer());
+
+        questionRepo.save(questionToBeUpdated);
+    }
+
+    public void deleteQuestionById(int id) {
+        questionRepo.deleteById(id);
+    }
+
+    @Transactional
+    public void saveQuestion(Question question) {
+        questionRepo.save(question);
+    }
+
+    public Question findById(int id) {
+        Optional<Question> question = questionRepo.findById(Math.toIntExact(id));
+        //возвращает пустой вопрос, если id не найден
+        if (!question.isPresent()) {
+            return new Question();
+        }
+        return question.get();
     }
 }
