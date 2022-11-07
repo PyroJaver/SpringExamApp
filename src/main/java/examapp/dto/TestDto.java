@@ -10,6 +10,8 @@ public class TestDto {
 
     private List<Question> questions;
     private double rate;
+    private double maxRate;
+    private double percentageOfCompletion;
 
     public TestDto() {
     }
@@ -26,19 +28,27 @@ public class TestDto {
         this.questions = questions;
     }
 
-    public void incrementRate(){
-        rate++;
-    }
 
     public double getPercentageOfCompletion(){
-        double maxRate = questions.size();
-        return 100*rate/maxRate;
+
+        return percentageOfCompletion;
     }
     public double getMaxRate(){
-        double maxRate = questions.size();
         return maxRate;
     }
     public double getRate(){
         return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public void setMaxRate(double maxRate) {
+        this.maxRate = maxRate;
+    }
+
+    public void setPercentageOfCompletion(double percentageOfCompletion) {
+        this.percentageOfCompletion = percentageOfCompletion;
     }
 }
