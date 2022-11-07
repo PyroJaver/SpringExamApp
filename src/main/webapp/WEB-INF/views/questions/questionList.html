@@ -5,7 +5,7 @@
     <title>Question List</title>
 </head>
 <body>
-<div th:action="@{/admin/questionList}" th:method="GET">
+<div th:action="@{/questions/questionList}" th:method="GET">
     <div th:each="question:${questions}">
     <table>
         <th>ID</th> <th>Question Text    </th> <th>Answer Text  <!-- </th> <th>Surname   </th> <th>Year of birth</th>-->
@@ -18,14 +18,14 @@
                 <td>
 
                     <form th:object="${question}"
-                          th:action="@{/admin/questionList/{id}(id=${question.getId()})}" method="POST">
+                          th:action="@{/questions/questionList/{id}(id=${question.getId()})}" method="POST">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="submit" value="Удалить"/> </form>
                 </td>
                 <td>
 
                     <form th:object="${question}"
-                          th:action="@{/admin/questionList/{id}(id=${question.getId()})}" method="GET">
+                          th:action="@{/questions/questionList/{id}(id=${question.getId()})}" method="GET">
                         <input type="hidden" name="_method" value="GET">
                         <input type="submit" value="Редактировать"/> </form>
                 </td>

@@ -20,7 +20,7 @@ public class TestingController {
         this.testDto = testDto;
     }
 
-    @GetMapping("/user/testingPage")
+    @GetMapping("/testingPage")
     public String testingPage(Model model) {
         testDto.setQuestions(questionService.getNewTestQuestions());
         model.addAttribute("test", testDto);

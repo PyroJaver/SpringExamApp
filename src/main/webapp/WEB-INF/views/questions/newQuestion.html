@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/admin/newQuestion}" th:object="${question}">
+<form th:method="POST" th:action="@{/questions/newQuestion}" th:object="${question}">
     <label for="questionText" th:text="#{testing.questions.question_text}"></label>
     <input type="text" th:field="*{questionText}" id="questionText"/>
     <div style="color: red" th:if="${#fields.hasErrors('questionText')}" th:errors="*{questionText}"> </div>

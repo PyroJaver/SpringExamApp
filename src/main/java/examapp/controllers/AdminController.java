@@ -1,6 +1,5 @@
 package examapp.controllers;
 
-import examapp.models.Question;
 import examapp.models.User;
 import examapp.services.QuestionService;
 import examapp.services.UserDetailService;
@@ -8,10 +7,7 @@ import examapp.util.QuestionValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 
 //TODO: этот контроллер чересчур разросся,нужен рефакторинг. Выделить контроллеры пользователей и вопросов.
@@ -34,13 +30,13 @@ public class AdminController {
     public String adminPanel(){
         return "/admin/adminPage";
     }
-
+/*
     @GetMapping("/newQuestion")
     public String newQuestionPage(@ModelAttribute("question") Question question){
         return "/admin/newQuestion";
-    }
+    } */
 
-    @PostMapping("/newQuestion")
+ /*   @PostMapping("/newQuestion")
     public String addNewQuestion(@ModelAttribute("question") @Valid Question question,
                                 BindingResult bindingResult){
         questionValidator.validate(question, bindingResult);
@@ -49,17 +45,9 @@ public class AdminController {
         }
         questionService.saveQuestion(question);
         return "/admin/newQuestion";
-    }
-    @GetMapping("/usersList")
-    public String openUsersList(Model model){
-        model.addAttribute("users", userDetailService.loadAllUsers() ) ;
-        return "/admin/userList";
-    }
-    @DeleteMapping ("/usersList/{id}")
-    public String deleteUserByAdmin(@PathVariable("id") int id){
-        userDetailService.deleteUserById(id);
-        return "redirect:/home";
-    }
+    }  */
+
+    /*
     @GetMapping("/questionList")
     public String openQuestionsList(Model model){
         model.addAttribute("questions", questionService.getAllQuestions()) ;
@@ -81,11 +69,16 @@ public class AdminController {
     questionService.update(id, question);
     return "/user/home";
     }
+*/
 
+
+
+
+    /*
     @GetMapping ("/userList/{id}")
     public String editUserPage(Model model, @PathVariable("id") int id){
         model.addAttribute("user", userDetailService.findById(id));
-        return "/admin/editUser";
+        return "users/editUser";
     }
 
     @PatchMapping("/userList/{id}")
@@ -93,4 +86,14 @@ public class AdminController {
         userDetailService.update(id, user);
         return "/user/home";
     }
+    @GetMapping("/userList")
+    public String openUsersList(Model model){
+        model.addAttribute("users", userDetailService.loadAllUsers() ) ;
+        return "users/userList";
+    }
+    @DeleteMapping ("/userList/{id}")
+    public String deleteUserByAdmin(@PathVariable("id") int id){
+        userDetailService.deleteUserById(id);
+        return "redirect:/home";
+    }*/
 }

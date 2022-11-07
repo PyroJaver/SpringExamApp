@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Admin Page</title>
 </head>
 <body>
-AdminPage
-<button class ="btn">
-<a th:href="@{/admin/userList}" th:text="Userlist"></a>
-</button>
-<button>
-    <a th:href="@{/admin/newQuestion}" th:text="CreateNewQuestion"></a>
-</button>
+
+<p>
+    <button class="btn">
+        <a th:href="@{../questions/newQuestion}" th:text="#{testing.questions.create_question}" ></a>
+    </button>
+</p>
+<p>
+    <button class="btn">
+        <a th:href="@{../users/userList}" th:text="#{admin.user_list}" ></a>
+    </button>
+</p>
+<p>
+    <button class="btn">
+        <a th:href="@{../questions/questionList}" th:text="#{admin.question_list}" ></a>
+    </button>
+</p>
+
+
 </body>
 </html>

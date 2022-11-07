@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:method="PATCH" th:action="@{/admin/questionList/{id}(id=${question.getId()})}" th:object="${question}">
+<form th:method="PATCH" th:action="@{/questions/questionList/{id}(id=${question.getId()})}" th:object="${question}">
     <label for="questionText" th:text="#{testing.questions.question_text}"></label>
     <input type="text" th:field="*{questionText}" id="questionText"/>
     <div style="color: red" th:if="${#fields.hasErrors('questionText')}" th:errors="*{questionText}"> </div>
