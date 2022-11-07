@@ -58,7 +58,7 @@ public class QuestionController {
 
     @PatchMapping("/questionList/{id}")
     public String editQuestion(@ModelAttribute Question question, @PathVariable("id") int id){
-        questionService.update(id, question);
+        questionService.updateQuestion(id, question);
         return "/user/home";
     }
 }
