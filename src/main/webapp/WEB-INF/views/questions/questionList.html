@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Question List</title>
+    <title th:text="#{titles.question_list}"></title>
 </head>
 <body>
 <div th:action="@{/questions/questionList}" th:method="GET">
