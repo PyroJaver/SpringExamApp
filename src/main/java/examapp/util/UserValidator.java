@@ -29,7 +29,7 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target;
 
-        //Username and password can't me empty or contain whitespace
+        //Username and password can't be empty or contain whitespace
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "error.not_empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "error.not_empty");
 
@@ -43,7 +43,7 @@ public class UserValidator implements Validator {
         }
 
         //Username can't be duplicated
-        if (userDetailService.getUserByUsername(user.getUsername()).isPresent()) {
+        if (Objects.equals(userDetailService.getUserByUsername(user.getUsername()).getUsername(), user.getUsername())) {
             errors.rejectValue("username", "registration.error.duplicated.username");
         }
 
