@@ -9,12 +9,15 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class UserDetail implements UserDetails {
-    private final User user;
+    private User user;
 
     public UserDetail(User user) {
         this.user = user;
     }
 
+    public User getUser() {
+        return this.user;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
@@ -51,7 +54,5 @@ public class UserDetail implements UserDetails {
         return true;
     }
 
-    public User getUser() {
-        return this.user;
-    }
+
 }
