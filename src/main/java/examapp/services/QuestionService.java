@@ -13,8 +13,6 @@ import java.util.*;
 public class QuestionService {
 
 
-
-
     private final QuestionRepo questionRepo;
 
     @Autowired
@@ -23,14 +21,15 @@ public class QuestionService {
     }
 
 
-
-
     public List<Question> getAllQuestions() {
         return questionRepo.findAll();
     }
 
     public void updateQuestion(int id, Question updatedQuestion) {
         Question questionToBeUpdated = findById(id);
+        if(questionToBeUpdated.getId()==0){
+            throw new RuntimeException("Question is not found!");
+        }
 
         questionToBeUpdated.setQuestionText(updatedQuestion.getQuestionText());
         questionToBeUpdated.setAnswer(updatedQuestion.getAnswer());
