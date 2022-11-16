@@ -7,8 +7,6 @@
 </head>
 <body>
 <div class = "col card-deck ml-5 my-3" >
-
-
 <form action="#" th:action="@{/user/testingPage}" th:object="${test}" th:method="POST">
     <div class = "card" th:each="question, itemStat:${test.questions}">
 
@@ -21,8 +19,6 @@
     </div>
     <input type="submit" id="submitButton" th:value="#{testing.save_answers}">
 </form>
-
-
 </div>
 </body>
 </html>
