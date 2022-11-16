@@ -29,13 +29,14 @@ public class UserDetailService implements UserDetailsService {
     //FIXME:Использование этого метода для загрузки пользователя при валидации приводит к невозможности регистрации
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepo.findByUsername(username);
-        if (user.isEmpty()){
+        UserDetail userDetail = new UserDetail(userRepo.findByUsername(username));
+
+        if (userDetail.getUser()==null){
             throw new UsernameNotFoundException("Пользователь не найден!");
         }
-        return new UserDetail(user.get());
+        return userDetail;
     }
-    public Optional<User> getUserByUsername(String username){
+    public User getUserByUsername(String username){
         return userRepo.findByUsername(username);
     }
     public List<User> loadAllUsers(){
@@ -63,14 +64,13 @@ public class UserDetailService implements UserDetailsService {
         userRepo.deleteById(id);
     }
 
-    @Transactional
-    public void deleteUserByEntity(User user){ userRepo.delete(user);}
-
 
 
     public void update(int id, User updatedUser){
         User userToBeUpdated = findById(id);
-
+        if (userToBeUpdated==null){
+            throw new RuntimeException("User is not found!");
+        }
         userToBeUpdated.setUsername(updatedUser.getUsername());
         userToBeUpdated.setYearOfBirth(updatedUser.getYearOfBirth());
         userToBeUpdated.setSurname(updatedUser.getSurname());
