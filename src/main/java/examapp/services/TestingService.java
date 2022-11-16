@@ -29,8 +29,6 @@ public class TestingService {
     }
 
     public void calculateTestingResults(TestDto testDto){
-    //    ArrayList<Question> testQuestions = (ArrayList<Question>) getTestQuestions();
-    //    ArrayList<Question> answeredQuestions = (ArrayList<Question>) getAnsweredQuestions();
 
         testDto.setQuestions(testQuestions);
         for (int i = 0; i < testQuestions.size(); i++) {
