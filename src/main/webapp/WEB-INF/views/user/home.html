@@ -8,8 +8,8 @@
 
 
 <div sec:authorize="hasRole('ROLE_ADMIN')" class="admin">
-    <button class="btn">
-        <a th:href="@{../admin/adminPage}" th:text="#{admin.admin_page}" ><i class="fas fa-times"></i></a>
+    <button class="adminPage">
+        <a th:href="@{../admin/adminPage}" th:text="#{admin.admin_page}" ></a>
     </button>
 </div>
 <p></p>
