@@ -5,6 +5,12 @@
     <title th:text="#{titles.home_page}"></title>
 </head>
 <body>
+<div class="currentUser" th:action="@{user/home}" th:method="GET" th:object="${currentUser}">
+<label th:text="#{user.current_user} + ' ' + ${currentUser.getUsername()}"></label>
+    <button class="editUser">
+        <a th:href="@{../user/editUser}" th:text="#{admin.edit_user}"></a>
+    </button>
+</div>
 
 
 <div sec:authorize="hasRole('ROLE_ADMIN')" class="admin">
@@ -15,7 +21,7 @@
 <p></p>
 <div>
     <button class="btn">
-        <a th:href="@{/testingPage}" th:text="#{testing.generate_test}"></a>
+        <a th:href="@{../testing/testingPage}" th:text="#{testing.generate_test}"></a>
     </button>
 </div>
 </body>
