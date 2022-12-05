@@ -39,7 +39,6 @@ public class LoginTest {
             .andExpect(content().string(containsString("label for=\"username\"")));
     }
     @Test
-    @Ignore
     public void redirectionToLoginPageTest() throws Exception{
         this.mockMvc.perform(get("/user/home"))
                 .andDo(print())
