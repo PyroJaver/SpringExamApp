@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/testing")
 public class TestingController {
     private final TestingService testingService;
 
@@ -27,13 +27,13 @@ public class TestingController {
         return "/testing/testingPage";
     }
 
-    @PostMapping("/user/testingPage")
+    @PostMapping("/testingPage")
     public String saveAnsweredQuestions(@ModelAttribute("test") TestDto testDto) {
         testingService.setAnsweredQuestions(testDto.getQuestions());
-        return "redirect:/user/testResults";
+        return "redirect:/testing/testResults";
     }
 
-    @GetMapping("/user/testResults")
+    @GetMapping("/testResults")
     public String showTestResults(Model model) {
         testingService.calculateTestingResults(testDto);
         model.addAttribute("testResult", testDto);

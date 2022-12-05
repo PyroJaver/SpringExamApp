@@ -29,14 +29,16 @@ public class TestDto {
     }
 
 
-    public double getPercentageOfCompletion(){
+    public double getPercentageOfCompletion() {
 
         return percentageOfCompletion;
     }
-    public double getMaxRate(){
+
+    public double getMaxRate() {
         return maxRate;
     }
-    public double getRate(){
+
+    public double getRate() {
         return rate;
     }
 

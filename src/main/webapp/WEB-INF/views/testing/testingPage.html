@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class = "col card-deck ml-5 my-3" >
-<form action="#" th:action="@{/user/testingPage}" th:object="${test}" th:method="POST">
+<form action="#" th:action="@{/testing/testingPage}" th:object="${test}" th:method="POST">
     <div class = "card" th:each="question, itemStat:${test.questions}">
 
         <h4 class = "question-id" th:text = "#{question.question} + ' ' + ${question.getId()}"></h4>

@@ -5,7 +5,7 @@
     <title th:text="#{titles.test_results}"></title>
 </head>
 <body>
-<div th:action="@{/user/testingPage}" th:object="${testResult}" th:method="GET">
+<div th:action="@{/testing/testingPage}" th:object="${testResult}" th:method="GET">
 <p class="testResult" th:text="#{testing.result} + ' ' + ${testResult.getRate()}+ ' ' + #{testing.points_out_of} +
 ' ' + ${testResult.getMaxRate()} + ', ' + #{testing.percentage_of_completion} + ' ' +
 ${testResult.getPercentageOfCompletion()} + '%'">
