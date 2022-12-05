@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title th:text="#{titles.question_list}"></title>
 </head>
 <body>
 <div th:action="@{/questions/questionList}" th:method="GET">
-    <div th:each="question:${questions}">
+    <div th:each="question:${questions}" id="question">
     <table>
         <th th:text="#{question.ID}"></th> <th th:text="#{question.question_text}"></th ><th th:text="#{question.answer}">
 
@@ -18,14 +18,14 @@
 
                     <form th:object="${question}"
                           th:action="@{/questions/questionList/{id}(id=${question.getId()})}" method="POST">
-                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_method" value="DELETE"/>
                         <input type="submit" th:value="#{admin.delete_question}"/> </form>
                 </td>
                 <td>
 
                     <form th:object="${question}"
                           th:action="@{/questions/questionList/{id}(id=${question.getId()})}" method="GET">
-                        <input type="hidden" name="_method" value="GET">
+                        <input type="hidden" name="_method" value="GET"/>
                         <input type="submit" th:value="#{admin.edit_question}"/> </form>
                 </td>
             </tr>

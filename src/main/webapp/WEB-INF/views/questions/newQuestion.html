@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title th:text="#{titles.create_question}"></title>
 </head>
 <body>
@@ -16,7 +16,7 @@
     <div style="color: red" th:if="${#fields.hasErrors('answer')}" th:errors="*{answer}"></div>
     <br/>
 
-    <input type="submit" th:value="#{testing.questions.create_question}">
+    <input type="submit" th:value="#{testing.questions.create_question}"/>
 
 </form>
 </body>
