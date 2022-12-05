@@ -3,6 +3,7 @@ package examapp.controllers;
 import examapp.models.User;
 import examapp.services.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,20 +20,21 @@ public class UserController {
     }
 
     @GetMapping("/home")
-    public String homePage(){
+    public String homePage(Model model){
+        model.addAttribute("currentUser", userDetailService.getCurrentUser() );
         return "/user/home";
     }
 
-    @GetMapping ("/userList/{id}")
-    public String editUserPage(Model model, @PathVariable("id") int id){
-        model.addAttribute("user", userDetailService.findById(id));
+    @GetMapping ("/editUser")
+    public String editUserPage(Model model){
+        model.addAttribute("user", userDetailService.getCurrentUser());
         return "user/editUser";
     }
 
-    @PatchMapping("/userList/{id}")
+    @PatchMapping("/editUser/{id}")
     public String editUser(@ModelAttribute User user, @PathVariable("id") int id){
         userDetailService.update(id, user);
-        return "/user/home";
+        return "/user/editUser";
     }
     @GetMapping("/userList")
     public String openUsersList(Model model){

@@ -5,6 +5,7 @@ import examapp.models.User;
 import examapp.repositories.UserRepo;
 import examapp.security.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,7 +30,7 @@ public class UserDetailService implements UserDetailsService {
     //FIXME:Использование этого метода для загрузки пользователя при валидации приводит к невозможности регистрации
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetail userDetail = new UserDetail(userRepo.findByUsername(username));
+        UserDetail userDetail = new UserDetail(userRepo.findByUsername(username).get());
 
         if (userDetail.getUser()==null){
             throw new UsernameNotFoundException("Пользователь не найден!");
@@ -37,7 +38,11 @@ public class UserDetailService implements UserDetailsService {
         return userDetail;
     }
     public User getUserByUsername(String username){
-        return userRepo.findByUsername(username);
+        Optional<User> user = userRepo.findByUsername(username);
+        if (user.isPresent()) {
+            return user.get();
+        }
+        else return new User();
     }
     public List<User> loadAllUsers(){
         List<User> allUsers = userRepo.findAll();
@@ -54,10 +59,6 @@ public class UserDetailService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    @Transactional
-    public void saveUser(User user) {
-        userRepo.save(user);
-    }
 
     @Transactional
     public void deleteUserById (int id){
@@ -65,10 +66,9 @@ public class UserDetailService implements UserDetailsService {
     }
 
 
-
     public void update(int id, User updatedUser){
         User userToBeUpdated = findById(id);
-        if (userToBeUpdated==null){
+        if (userToBeUpdated.getId()==0){
             throw new RuntimeException("User is not found!");
         }
         userToBeUpdated.setUsername(updatedUser.getUsername());
@@ -87,6 +87,13 @@ public class UserDetailService implements UserDetailsService {
             return user.get();
         } else
         return new User();
+    }
+
+    public User getCurrentUser(){
+         UserDetail userDetail =(UserDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+         User user = userDetail.getUser();
+         user.setPassword("");
+        return user;
     }
 
 }

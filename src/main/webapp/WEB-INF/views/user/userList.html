@@ -23,12 +23,7 @@
                 <input type="hidden" name="_method" value="DELETE"/>
                 <input type="submit" th:value="#{admin.delete_user}"/> </form>
         </td>
-        <td>
 
-            <form th:object="${user}"
-                  th:action="@{/user/userList/{id}(id=${user.getId()})}" method="GET">
-                <input type="submit" th:value="#{admin.edit_user}"/> </form>
-        </td>
     </tr>
 </div>
     </table>
