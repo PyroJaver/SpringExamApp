@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class QuestionServiceTest {
     @Autowired
-    QuestionService questionService;
+    private QuestionService questionService;
     @MockBean
     private QuestionRepo questionRepo;
 
