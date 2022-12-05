@@ -8,7 +8,7 @@
 <div th:action="@{/questions/questionList}" th:method="GET">
     <div th:each="question:${questions}" id="question">
     <table>
-        <th th:text="#{question.ID}"></th> <th th:text="#{question.question_text}"></th ><th th:text="#{question.answer}">
+        <th th:text="#{question.ID}"></th><th th:text="#{question.question_text}"></th><th th:text="#{question.answer}"></th>
 
             <tr><td th:text="${question.getId()}"></td>
                 <td th:text="${question.getQuestionText()}"></td>

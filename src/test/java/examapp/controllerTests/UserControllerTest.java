@@ -56,18 +56,18 @@ public class UserControllerTest {
 
     @Test
     public void editUserPageTest() throws Exception {
-          this.mockMvc.perform(get("/user/userList/{id}", 2))
+          this.mockMvc.perform(get("/user/editUser", 2))
         .andDo(print())
         .andExpect(status().isOk())
                   //следующие проверки нужны для того, заполнились ли формы полями переданного пользователя
         .andExpect(content().string(containsString
-                ("<input type=\"text\" id=\"username\" name=\"username\" value=\"testUsername2\"/>")))
+                ("<input type=\"text\" id=\"username\" name=\"username\" value=\"testUsername\"/>")))
         .andExpect(content().string(containsString
-                ("<input type=\"text\" id=\"name\" name=\"name\" value=\"testName2\"/>")))
+                ("<input type=\"text\" id=\"name\" name=\"name\" value=\"testName\"/>")))
         .andExpect(content().string(containsString
-                ("<input type=\"text\" id=\"surname\" name=\"surname\" value=\"testSurname2\"/>")))
+                ("<input type=\"text\" id=\"surname\" name=\"surname\" value=\"testSurname\"/>")))
         .andExpect(content().string(containsString
-                ("<input type=\"text\" id=\"yearOfBirth\" name=\"yearOfBirth\" value=\"2001\"/>")));
+                ("<input type=\"text\" id=\"yearOfBirth\" name=\"yearOfBirth\" value=\"2000\"/>")));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class UserControllerTest {
         User testUser2 = userDetailService.findById(2);
     this.mockMvc.perform(delete("/user/userList/{id}", testUser2.getId()))
             .andExpect(status().is3xxRedirection())
-            .andExpect(redirectedUrl("/userList"));
+            .andExpect(redirectedUrl("/user/userList"));
         Assert.assertEquals(userDetailService.loadAllUsers().size(),1);
         Assert.assertEquals(userDetailService.findById(1).getUsername(), testUser.getUsername());
     }

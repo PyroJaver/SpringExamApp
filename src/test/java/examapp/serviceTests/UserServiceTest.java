@@ -37,19 +37,6 @@ public class UserServiceTest {
       verify(userRepo, Mockito.times(1)).save(user);
   }
 
-  //Этот тест падает, если не закомментировать аннотацию @Component у StartupData
-  @Test
-  @Ignore
-  public void registerUserFailTest(){
-    User user = new User();
-    user.setUsername("testUser");
-    Mockito.doReturn(new User())
-            .when(userRepo)
-            .findByUsername("testUser");
-
-    Mockito.verify(userRepo, Mockito.times(0)).save(ArgumentMatchers.any(User.class));
-    Mockito.verify(userRepo, Mockito.times(1)).findByUsername(ArgumentMatchers.any(String.class));
-  }
   @Test
   public void deleteUserByIdTest(){
     User user = new User();
