@@ -37,6 +37,7 @@ public class UserDetailService implements UserDetailsService {
         }
         return userDetail;
     }
+    @Transactional
     public User getUserByUsername(String username){
         Optional<User> user = userRepo.findByUsername(username);
         if (user.isPresent()) {
@@ -44,6 +45,7 @@ public class UserDetailService implements UserDetailsService {
         }
         else return new User();
     }
+    @Transactional
     public List<User> loadAllUsers(){
         List<User> allUsers = userRepo.findAll();
         return allUsers;
@@ -66,6 +68,7 @@ public class UserDetailService implements UserDetailsService {
     }
 
 
+    @Transactional
     public void update(int id, User updatedUser){
         User userToBeUpdated = findById(id);
         if (userToBeUpdated.getId()==0){
@@ -81,6 +84,7 @@ public class UserDetailService implements UserDetailsService {
         userRepo.save(userToBeUpdated);
     }
 
+    @Transactional
     public User findById(int id) {
         Optional<User> user = userRepo.findById(id);
         if(user.isPresent() ){

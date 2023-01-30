@@ -5,6 +5,7 @@ import examapp.models.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,6 +47,7 @@ public class TestingService {
 
     }
     //метод выгружает все вопросы из базы данных, а затем генерирует из них тест со случайными вопросами
+    @Transactional
     public List<Question> findTestQuestions(int sizeOfTest) {
 
         List<Question> allQuestions = questionService.getAllQuestions();

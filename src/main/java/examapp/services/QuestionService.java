@@ -25,6 +25,7 @@ public class QuestionService {
         return questionRepo.findAll();
     }
 
+    @Transactional
     public void updateQuestion(int id, Question updatedQuestion) {
         Question questionToBeUpdated = findById(id);
         if(questionToBeUpdated.getId()==0){
@@ -46,6 +47,7 @@ public class QuestionService {
         questionRepo.save(question);
     }
 
+    @Transactional
     public Question findById(int id) {
         Optional<Question> question = questionRepo.findById(Math.toIntExact(id));
         //возвращает пустой вопрос, если id не найден
